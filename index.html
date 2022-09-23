@@ -1,68 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng kí</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <form action="">
-        <h1>Trang Đăng Kí</h1>
-        NgocHan NgocHan2 ne
-        <div class="form-control">
-          <input id="username" type="text" placeholder="Tên người dùng" />
-          <small></small>
-          <span></span>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="main">
 
-        <div class="form-control">
-          <input id="email" type="text" placeholder="Email" />
-          <small></small>
-          <span></span>
-        </div>
+        <form action="" method="POST" class="form" id="form-1">
+          <h3 class="heading">ĐĂNG KÝ</h3>
+      
+          <div class="spacer"></div>
+      
+          <div class="form-group">
+            <label for="fullname" class="form-label">Tên đầy đủ</label>
+            <input id="fullname" name="fullname" type="text" placeholder="VD: Sơn Đặng" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+            <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <button class="form-submit">Đăng ký</button>
+        </form>
+      
+      </div>
+      
+      <script src="./validator.js"></script>
 
-        <div class="form-control">
-          <input id="password" type="password" placeholder="Password" />
-          <small></small>
-          <span></span>
-        </div>
-
-        <div class="form-control">
-          <input
-            id="confirm-password"
-            type="password"
-            placeholder="Confirm Password"
-          />
-          <small></small>
-          <span></span>
-        </div>
-
-        <div class="form-control">
-          <input
-            id="confirm-password"
-            type="password"
-            placeholder="Confirm Password"
-          />
-          <small></small>
-          <span></span>
-        </div>
-        <div class="div">
-          <span>up len duoc chua?</span>
-        </div>
-        <button type="submit" class="btn-submit">Login</button>
-
-        <div class="signup-link">Not a member? <a href="#">Signup</a></div>
-        <div>khong mat nha</div>
-        <div>khong mat nha2</div>
-        <div>khong mat nha3</div>
-        <div>khong mat nha4</div>
-        <div>khong mat nha5</div>
-        <div>khong mat nha6</div>
-      </form>
-    </div>
-  </body>
-  <script src="app.js"></script>
+      <script>
+            Validator({
+                form: '#form-1',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    Validator.isRequired('#fullname'),
+                    Validator.isRequired('#password'),
+                    Validator.isRequired('#email'),
+                    Validator.isEmail('#email'),
+                    Validator.minLength('#password'),
+                    Validator.isPassConfirm('#password_confirmation', function(){
+                      return document.querySelector('#form-1 #password').value;
+                    }, 'Mật khẩu nhập lại không chính xác')
+                
+                    //Nếu có 2 rule trùng id sẽ ưu tiên lấy thằng cuối
+                  ],
+                onSubmit: function(data){
+                  console.log(data)
+                }
+            });
+      </script>
+</body>
 </html>
+
+<!-- Tạo Validator -> tạo các rules -> get E của form -> duyệt qua từng E và validate
+submit form -> xử lý blur -> xử lý input  -->
